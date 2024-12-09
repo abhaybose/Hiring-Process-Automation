@@ -1,0 +1,6 @@
+define_user_input:
+  description: >
+    Ensure the {user_input} is analyzed and checked for a database query related to the connected database.
+  expected_output: >
+    boolean
+  agent: user_query_router

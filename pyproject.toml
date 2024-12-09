@@ -1,0 +1,18 @@
+[project]
+name = "chat_workflow"
+version = "0.1.0"
+description = "chat-workflow using crewAI"
+authors = [{ name = "Your Name", email = "you@example.com" }]
+requires-python = ">=3.10,<=3.13"
+dependencies = [
+    "crewai[tools]>=0.76.9,<1.0.0",
+    "markdown_to_json"
+]
+
+[project.scripts]
+kickoff = "chat_workflow.main:kickoff"
+plot = "chat_workflow.main:plot"
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"

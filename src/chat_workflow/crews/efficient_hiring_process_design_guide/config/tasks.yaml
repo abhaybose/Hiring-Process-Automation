@@ -1,0 +1,110 @@
+---
+collect_job_role_information:
+  description: Collect the job role name {job_role_name}, any optional project-related
+    role requirements {project_requirements}, and job location {job_location} from
+    the Hiring Manager.
+  expected_output: Complete input details including job role name, optional project
+    requirements, and job location.
+  async_execution: false
+  agent: hiring_manager_assistant
+scrape_current_profiles_and_salary_data:
+  description: Use tools to gather current profile details and salary data for {job_role_name}
+    in {job_location} from LinkedIn and Indeed.
+  expected_output: Current industry trends and salary data for the specified job role
+    and location.
+  async_execution: false
+  agent: trend_and_salary_analyzer
+  context:
+  - collect_job_role_information
+generate_position_description:
+  description: Create a position description based on the job role {job_role_name},
+    project requirements {project_requirements}, and insights from LinkedIn and Indeed
+    profiles.
+  expected_output: A well explained position description aligned with industry and
+    project needs. Minimum 700 words
+  async_execution: false
+  agent: profile_generator
+  context:
+  - scrape_current_profiles_and_salary_data
+define_objectives_roles:
+  description: Identify key objectives and roles for the position {job_role_name},
+    considering project-specific needs and industry trends.
+    minimum 10 lines of text
+  expected_output: Detailed objectives and roles aligned with industry trends and
+    project requirements.
+  async_execution: false
+  agent: profile_generator
+  context:
+  - generate_position_description
+outline_future_duties_and_responsibilities:
+  description: List future duties and responsibilities for the position {job_role_name}
+    with project context and industry alignment.
+  expected_output: Detailed  list of duties and responsibilities for the role. minimum 20 lines of text
+  async_execution: false
+  agent: profile_generator
+  context:
+  - define_objectives_roles
+specify_required_qualifications:
+  description: Determine the qualifications needed for success in the role {job_role_name},
+    including project-specific and industry standard qualifications.
+  expected_output: List of required qualifications for the job role.
+  async_execution: false
+  agent: profile_generator
+  context:
+  - outline_future_duties_and_responsibilities
+identify_required_competencies:
+  description: List competencies that are absolutely required for the role {job_role_name}
+    and project-specific competencies, referencing current profiles.
+  expected_output: List of single word required competencies for the role. minimum 5 lines of text
+  async_execution: false
+  agent: profile_generator
+  context:
+  - specify_required_qualifications
+identify_good_to_have_competencies:
+  description: List competencies that are beneficial for the role {job_role_name}
+    and project-related competencies, considering industry trends.
+  expected_output: List of beneficial single word competencies for the role. minimum 5 lines of text
+  async_execution: false
+  agent: profile_generator
+  context:
+  - identify_required_competencies
+list_must_have_certifications:
+  description: Identify mandatory certifications for the role {job_role_name} and
+    any project-required certifications, aligned with current industry standards.
+  expected_output: List of must-have certifications for the role.
+  async_execution: false
+  agent: profile_generator
+  context:
+  - identify_good_to_have_competencies
+list_good_to_have_certifications:
+  description: Identify certifications that are beneficial for the role {job_role_name}
+    and project-specific certifications, referencing industry trends.
+  expected_output: List of beneficial certifications for the role.
+  async_execution: false
+  agent: profile_generator
+  context:
+  - list_must_have_certifications
+incorporate_salary_range:
+  description: Include the salary range for {job_role_name} in {job_location} based
+    on data from LinkedIn and Indeed.
+  expected_output: Salary range information for the specified job role and location.
+  async_execution: false
+  agent: profile_generator
+  context:
+  - scrape_current_profiles_and_salary_data
+finalize_rm_profile:
+  description: Compile all previously gathered information into a finalized RM Profile for {job_role_name}.
+  expected_output: A finalized RM Profile including all sections and data points. Include all the below details in the RM Profile:-
+    - Position Description
+    - Objectives & Roles
+    - Future Duties and Responsibilities
+    - Required Qualifications to be successful in this role
+    - Competencies that are absolutely required
+    - Compentencias that are good to have
+    - list of Must Have Certifications
+    - List of Good to Have Certifications
+  async_execution: false
+  agent: hiring_manager_assistant
+  context:
+  - list_good_to_have_certifications
+  - incorporate_salary_range

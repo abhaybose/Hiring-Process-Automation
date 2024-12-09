@@ -1,0 +1,18 @@
+NLP_to_SQL:
+  description: >
+    convert {user_input} to  sql queries that can be executed on the connected database
+    do not respond with markdown or html
+    only respond with JSON ARRAY object.
+  expected_output: >
+    JSON ARRAY object Only
+  agent: Database_SQL_Agent
+
+
+format_response:
+  description: >
+    Edit the response from the Previous Task and return the response in a machine readable JSON format.
+    Do not respond with markdown or HTML.
+    if Final Answer is Markdown, Convert final answer to  JSON ARRAY object from Markdown
+  expected_output: >
+    JSON ARRAY object and not Markdown
+  agent: Editor_Agent

@@ -1,0 +1,6 @@
+generic_response:
+  description: >
+    respond to {user_input} using a human-like conversation.
+  expected_output: >
+    a response to the user input.
+  agent: Generic_Agent
